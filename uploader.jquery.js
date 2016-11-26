@@ -14,7 +14,7 @@ $(".camera-area").fileUpload({
 		"url"				: "uploader.php",	//上传接收文件
 		"file"				: "myFile"			//上传<input name=
 	};
-	var upload_arr={};//上传图片
+	var upload_arr={};//上传图片  预览图的id=>上传文件名
 	var upload_id=0;//上传图片id
 	var lock=false;//上传锁定
 	$.extend($.fn, {
@@ -48,13 +48,21 @@ $(".camera-area").fileUpload({
 						}
 						funs.uploadFile();
 					},
-					count: function() {
+					"alertObj":function(obj){ 
+						var description = ""; 
+						for(var i in obj){ 
+							var property=obj[i]; 
+							description+=i+" = "+property+"\n"; 
+						} 
+						alert(description); 
+					},
+					"count": function() {
 						var num=0;
 						for(k in upload_arr)if(upload_arr[k]!==null)num++;
 						return num;
 					},
 					//异步上传文件
-					uploadFile: function() {
+					"uploadFile": function() {
 						if(lock) return false;
 						lock=true;
 						var fd = new FormData(); //创建表单数据对象
@@ -72,7 +80,7 @@ $(".camera-area").fileUpload({
 						xhr.send(fd);
 					},
 					//文件预览
-					previewImage: function(file) {
+					"previewImage": function(file) {
 						var img = document.createElement("img");
 						img.file = file;
 						doms.tmp_thumb_template.find(settings.thumb_template).html(img);
@@ -85,7 +93,7 @@ $(".camera-area").fileUpload({
 						})(img);
 						reader.readAsDataURL(file);
 					},
-					uploadProgress: function(evt) {
+					"uploadProgress": function(evt) {
 						if (evt.lengthComputable) {
 							var percentComplete = Math.round(evt.loaded * 100 / evt.total);
 							doms.progress.html(percentComplete.toString() + '%');
@@ -112,8 +120,8 @@ $(".camera-area").fileUpload({
 						last_elem.children('.thumb_mask123').click(function(){
 							last_elem.remove();
 							upload_arr[last_elem.attr('id')]=null;
-							//alertObj(upload_arr);
-							//alert(funs.count(upload_arr));
+							funs.alertObj(upload_arr);
+							alert(funs.count(upload_arr));
 						});
 						lock=false;
 					}
@@ -128,11 +136,3 @@ $(".camera-area").fileUpload({
 		}
 	});
 })(jQuery);
-function alertObj(obj){ 
-	var description = ""; 
-	for(var i in obj){ 
-		var property=obj[i]; 
-		description+=i+" = "+property+"\n"; 
-	} 
-	alert(description); 
-}
