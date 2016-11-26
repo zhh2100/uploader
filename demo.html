@@ -6,16 +6,16 @@
 <style>
 </style>
 <!-- script src="http://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script-->
-<script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="uploader.jquery.js"></script>
 </head>
 <body style="height:1000px;">
 <div class="camera-area">
    <form enctype="multipart/form-data" method="post">
     <input type="file" name="fileToUpload" class="fileToUpload" accept="image/*" capture="camera"/>
-     <div class="upload-progress"><span></span></div>
+     <div class="upload_progress"><span></span></div>
     </form>
-   <div class="thumb"></div>
+   <p class="thumb_template"></p>
 </div>
 <script>
 $(".camera-area").fileUpload({
