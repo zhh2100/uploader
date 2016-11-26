@@ -1,0 +1,27 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+	<meta charset="utf-8"/>  
+	<title>demo</title> 
+<style>
+</style>
+<!-- script src="http://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script-->
+<script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script src="uploader.jquery.js"></script>
+</head>
+<body style="height:1000px;">
+<div class="camera-area">
+   <form enctype="multipart/form-data" method="post">
+    <input type="file" name="fileToUpload" class="fileToUpload" accept="image/*" capture="camera"/>
+     <div class="upload-progress"><span></span></div>
+    </form>
+   <div class="thumb"></div>
+</div>
+<script>
+$(".camera-area").fileUpload({
+	"url": "uploader.php",
+	"file": "myFile"
+});
+</script>
+</body>
+</html>
