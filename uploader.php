@@ -1,6 +1,7 @@
 <?php
-session_start();
+ini_set('upload_tmp_dir', './');
 if(empty($_REQUEST['act'])){
+	file_put_contents('a.txt',$_REQUEST['id']);
 	if (isset($_FILES['myFile'])) {
 		//扩展名
 		$ext=strtolower(substr($_FILES['myFile']['name'],strrpos($_FILES['myFile']['name'],'.')));

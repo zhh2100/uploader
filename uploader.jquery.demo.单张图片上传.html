@@ -1,0 +1,34 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+	<meta charset="utf-8"/>  
+	<title>demo</title> 
+<style>
+</style>
+<!-- <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script> -->
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="uploader.jquery.js"></script>
+<!-- <script src="http://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+ <script src="uploader.zepto.js"></script>
+ --> </head>
+<body style="height:1000px;">
+<div class="camera-area" data-id='1'>
+    <input type="file" name="fileToUpload" class="fileToUpload" accept="image/*" capture="camera"/>
+     <div class="upload_progress"></div>
+   <p class="thumb_template"></p>
+</div>
+<div class="camera-area">
+    <input type="file" name="fileToUpload" class="fileToUpload" accept="image/*" capture="camera"/>
+     <div class="upload_progress"></div>
+   <p class="thumb_template"></p>
+</div>
+<script>
+$(".camera-area").fileUpload({
+	"url": "uploader.php",
+	//"is_multi"	: "false",
+	//"is_del"	: "false",
+	"file": "myFile"
+});
+</script>
+</body>
+</html>
