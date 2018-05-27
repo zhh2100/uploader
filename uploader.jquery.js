@@ -9,12 +9,12 @@ $(".camera-area").fileUpload({
  */
 (function($) {
 	var settings = {
-		"url"				: "uploader.php",	//上传接收文件		必选
-		"file"				: "myFile",			//上传<input name=	必选
-		'fileToUpload'		: ".fileToUpload",	//上传输入框		必选
-		'thumb_template'	: ".thumb_template",//预览模板			必选
-		'upload_progress'	: ".upload_progress",//上传进度										可选
-		'save'				: ".save",			//保存已上传图片 $().attr('value',1.jpg|2.jpg)	可选
+		"url"				: "uploader.php",	//上传接收文件				必选
+		"file"				: "myFile",			//上传给后台接收的$_FILES['myFile']['name'] <input name=	必选
+		'fileToUpload'		: ".fileToUpload",	//上传输入框,选择文件用		必选
+		'thumb_template'	: ".thumb_template",//预览模板					必选
+		'upload_progress'	: ".upload_progress",//上传进度											可选
+		'save'				: ".save",			//保存已上传图片名 $().attr('value',1.jpg|2.jpg)	可选
 		'id'				: "data-id",//当前元素内attr('data-id') 可以传一个id值到uploader.php以绑定库记录		可选
 		"is_multi"			: "true",			//上传多张图片 缩略图多张append,单张替换
 		"is_del"			: "true"			//上传图片是否能删除   加遮罩删除按钮
