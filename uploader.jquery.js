@@ -124,11 +124,12 @@ $(".camera-area").fileUpload({
 						}
 					},
 					"uploadFailed": function(evt) {
-						alert('上传失败！');
+						alert('上传失败,请重试！');
 					},
 					"uploadComplete": function(evt) {
 						if(evt.target.responseText==''){
-							alert('上传失败！');
+							alert('上传失败,请重试！');
+							return;
 						}
 						//是否上传多张图片
 						if(settings.is_multi=='true'){
