@@ -376,7 +376,7 @@ $(".camera-area").fileUpload({
 	};	
 	var compress=function(myFile,fd,oFile){		
 		var imgSize = oFile.size;
-		if(imgSize < 100 * 1024){//小于100Kb不压缩
+		if(imgSize < 50 * 1024){//小于50Kb不压缩
 			fd.append(myFile, oFile);
 			compress_num++;
 		}else{//图片压缩处理
@@ -388,11 +388,15 @@ $(".camera-area").fileUpload({
 					resizeMode:"auto",
 					dataSource:base64Img,
 					dataSourceType:"base64",
-					maxWidth:600, //允许的最大宽度
-					maxHeight:600, //允许的最大高度。
+					maxWidth:1000, //允许的最大宽度
+					maxHeight:1000, //允许的最大高度。
 					success:function(resizeImgBase64,canvas){
 						var blob = dataURLtoBlob(resizeImgBase64);
-						fd.append(myFile, blob, oFile['name']);
+						if(blob.size<imgSize){
+							fd.append(myFile, blob, oFile['name']);							
+						}else{
+							fd.append(myFile, oFile);
+						}
 						compress_num++;
 					}
 				});
