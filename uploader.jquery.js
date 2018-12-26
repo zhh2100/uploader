@@ -38,11 +38,12 @@ $(".camera-area").fileUpload({
 				var variable= {
 					"fileToUpload": $self.find(settings.fileToUpload),
 					"thumb_wrap": $self.find(settings.thumb_template).wrap('<span/>').parent(),
-					"tmp_thumb_template": $('#tmp_thumb_template'+thumb_length),
+					"org_thumb_wrap": $self.find(settings.thumb_template).parent().html(),//保存原始格式  删除时恢复
+					"tmp_thumb_template": $('#tmp_thumb_template'+thumb_length),//组装上传后append到显示位置thumb_wrap 中间
 					"progress": $self.find(settings.upload_progress),
 					"save": $self.find(settings.save),
 					"id": $self.attr(settings.id),
-					"upload_id": 0,
+					"upload_id": 0,//上传图片计数
 				};
 				variable.tmp_thumb_template.html(variable.thumb_wrap.html());
 				//variable.thumb_wrap.html('');//清空装预览
@@ -177,9 +178,13 @@ $(".camera-area").fileUpload({
 								}
 							);
 							last_elem.children('.thumb_mask123').click(function(){
-								last_elem.remove();
 								upload_arr[last_elem.attr('data-id')]=null;
+								var parent=last_elem.parent();
+								last_elem.remove();
 								funs.writeUploadAttr();
+								if($.trim(parent.html())==''){
+									parent.html(variable.org_thumb_wrap);
+								}
 								//funs.alertObj(upload_arr);alert(funs.count(upload_arr));
 							});
 						}
@@ -334,7 +339,8 @@ $(".camera-area").fileUpload({
 				);
 
 				//--获取base64字符串及canvas对象传给success函数。
-				var base64str=canvas.toDataURL("image/png");
+				//var base64str=canvas.toDataURL("image/png");
+				var base64str=canvas.toDataURL("image/jpeg",0.8);
 				if(callback){
 					callback(base64str,canvas);
 				}
@@ -374,9 +380,9 @@ $(".camera-area").fileUpload({
 		}
 		return new Blob([u8arr], {type:mime});
 	};	
-	var compress=function(myFile,fd,oFile){		
+	var compress=function(myFile,fd,oFile){
 		var imgSize = oFile.size;
-		if(imgSize < 50 * 1024){//小于50Kb不压缩
+		if(imgSize < 50 * 1024){
 			fd.append(myFile, oFile);
 			compress_num++;
 		}else{//图片压缩处理
@@ -392,8 +398,8 @@ $(".camera-area").fileUpload({
 					maxHeight:1000, //允许的最大高度。
 					success:function(resizeImgBase64,canvas){
 						var blob = dataURLtoBlob(resizeImgBase64);
-						if(blob.size<imgSize){
-							fd.append(myFile, blob, oFile['name']);							
+						if(blob.size<imgSize && blob.size>1024){
+							fd.append(myFile, blob, oFile['name'].replace(/png|bmp/ig,"jpg"));							
 						}else{
 							fd.append(myFile, oFile);
 						}
