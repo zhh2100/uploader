@@ -1,7 +1,7 @@
 <pre>
 https://github.com/qqtxt/uploader
 兼容jquery1.7+ 2,3都支持 
-新增canvas压缩
+新增canvas压缩  支持canvas就可以压缩图片后上传，100kb内图片不作压缩  app内用过 兼容性好
 
 $(".camera-area").fileUpload({
 	"url": "uploader.php",
