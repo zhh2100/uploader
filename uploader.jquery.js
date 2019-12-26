@@ -38,8 +38,8 @@ $(".camera-area").fileUpload({
 				var variable= {
 					"fileToUpload": $self.find(settings.fileToUpload),
 					"thumb_wrap": $self.find(settings.thumb_template).wrap('<span/>').parent(),
-					"org_thumb_wrap": $self.find(settings.thumb_template).parent().html(),//保存原始格式  删除时恢复
-					"tmp_thumb_template": $('#tmp_thumb_template'+thumb_length),//组装上传后append到显示位置thumb_wrap 中间
+					"org_thumb_wrap": $self.find(settings.thumb_template).parent().html(),
+					"tmp_thumb_template": $('#tmp_thumb_template'+thumb_length),
 					"progress": $self.find(settings.upload_progress),
 					"save": $self.find(settings.save),
 					"id": $self.attr(settings.id),
@@ -180,6 +180,7 @@ $(".camera-area").fileUpload({
 							last_elem.children('.thumb_mask123').click(function(){
 								upload_arr[last_elem.attr('data-id')]=null;
 								var parent=last_elem.parent();
+								variable.fileToUpload.val('');
 								last_elem.remove();
 								funs.writeUploadAttr();
 								if($.trim(parent.html())==''){
@@ -382,7 +383,7 @@ $(".camera-area").fileUpload({
 	};	
 	var compress=function(myFile,fd,oFile){
 		var imgSize = oFile.size;
-		if(imgSize < 50 * 1024){
+		if(imgSize < 30 * 1024 || oFile.type=="image/gif"){//小于30Kb不压缩   不压缩gif动图
 			fd.append(myFile, oFile);
 			compress_num++;
 		}else{//图片压缩处理
@@ -413,11 +414,3 @@ $(".camera-area").fileUpload({
 	}	
 	
 })(jQuery);
-
-
-
-
-
-
-
-
